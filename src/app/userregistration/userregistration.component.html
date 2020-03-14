@@ -1,0 +1,95 @@
+<div class="ui card regcard">
+<div *ngIf="!confirmFlag; else confirmEntry" style="padding: 10px; ">
+    <form class="ui form" [formGroup]="registrationForm">
+        <div class="header"><h4 class="ui dividing header">User Registration Form</h4></div>
+        <div class="field">
+          <label>Name</label>
+          <div class="two wide fields">
+            <div class="field">
+              <input type="text" name="firstname" placeholder="First Name" 
+                    formControlName = "firstname">
+            </div>
+            <div class="field">
+              <input type="text" name="lastname" placeholder="Last Name" formControlName = "lastname">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+            <label>Address</label>
+            <div class="field">
+              <div class="field">
+                <input type="text" name="address" placeholder="Address" formControlName = "address">
+              </div>
+            </div>
+          </div>
+          <div class="three fields">
+                <div class="field">
+                    <label>City</label>
+                    <input type="text" name="city" placeholder="City" formControlName = "city">
+                </div>
+                <div class="field">
+                    <label>Country</label>
+                    <input type="text" name="country" placeholder="Country" formControlName = "country">
+                </div>
+                <div class="field">
+                    <label>Pin Code</label>
+                    <input type="text" name="pincode" placeholder="Pin Code" formControlName = "pincode">
+                </div>
+          </div>
+
+          
+          <button (click) = "saveUserDetails()" class="ui primary button">
+                Save
+          </button>
+          <button (click)="resetForm()" class="ui button">
+                Reset
+          </button>
+          <button (click)="exitForm()" class="ui button">
+            Cancel
+          </button>
+    </form>  
+</div>
+
+<ng-template #confirmEntry>
+    <div style="padding: 10px; height: 250px;">
+        <div style="text-align: center; left: 50%;"><b>Thank you...User Registration Complete.</b></div>
+    </div>
+
+    <div style="padding: 10px">
+        <button (click) = "addUser()" class="ui primary button">
+            Add User
+        </button>
+        <button (click)="exitForm()" class="ui button">
+            Exit
+        </button>
+    </div>
+</ng-template>
+</div>
+
+<!--div class="image">
+      <img src="/images/avatar2/large/kristy.png">
+    </div>
+    <div class="content">
+      <a class="header">Kristy</a>
+      <div class="meta">
+        <span class="date">Joined in 2013</span>
+      </div>
+      <div class="description">
+        Kristy is an art director living in New York.
+      </div>
+    </div>
+    <div class="extra content">
+      <a>
+        <i class="user icon"></i>
+        22 Friends
+      </a>
+    </div-->
+
+<!--div id="regiForm">
+    <h2>User Registration Form</h2>
+    
+</div-->
+
+
+
+

@@ -1,0 +1,42 @@
+<div class="ui card regcard">
+    <div style="padding: 10px; ">
+        <form class="ui form" [formGroup]="queryForm">
+            <div class="header"><h4 class="ui dividing header">Search Criteria</h4></div>
+            <div class="five fields">
+                    <label style="padding: 10px">Id: </label>
+                    <input type="text" name="id" style="padding: 10px" placeholder="Id" formControlName = "id">
+                    <label style="padding: 10px"> OR </label>
+                    <label style="padding: 10px">Name: </label>
+                    <input type="text" name="lastname" style="padding: 10px" placeholder="Name" formControlName = "lastname">
+            </div>
+              
+              <button (click) = "searchUser()" class="ui primary button">
+                    Search
+              </button>
+              <button (click) = "exitForm()" class="ui button">
+                    Cancel
+              </button>
+        </form>  
+    </div>
+    
+    <div *ngIf="recordFound" style="padding: 10px; ">
+        <div class="container">
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let userDetail of selectedUser">
+                  <td>{{ userDetail.id }}</td>
+                  <td>{{ userDetail.firstname }}  {{userDetail.lastname}}</td>
+                  <td><img src="/assets/user_details.png" ng-click="showDetails()" width="20" height="20"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>

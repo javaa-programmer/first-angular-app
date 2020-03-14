@@ -1,0 +1,38 @@
+.regcard{
+    width: auto;
+    margin-top: 20px !IMPORTANT;
+}
+
+.two.columns {
+    width: 16.6666%;
+}
+
+.four.columns {
+    width: 33.3333%;
+}
+
+.ten.columns {
+    width: 83.3334%;
+}
+
+.twelve.columns {
+    width: 100%;
+}
+
+.headerformat {
+    padding: 10px;
+}
+
+.lblformat {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.lblformat.fontbold {
+    font-weight: bold;
+}
+
+.row.border {
+    border-bottom: black;
+}

@@ -21,12 +21,10 @@ export class UserlistComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.displayDetails = false;
   }
 
   showUserDetails(id: number) {
-    console.log("Inside Show User Details");
-    console.log("Id : ", id);
-
     for( let ud of this.userDetails ) {
       if( ud.id == id) {
         this.selectedUser = ud;

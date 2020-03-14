@@ -1,3 +1,5 @@
+import { UsermanagementService } from './../usermanagement.service';
+import { USERSLIST } from './../SampleUsers';
 import { UserDetails } from './../userdetails';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -12,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserdetailsComponent implements OnInit {
 
   public uDetails: UserDetails;
-  constructor(public router: Router, private regForm: FormBuilder) { 
+  constructor(public router: Router, private regForm: FormBuilder, private umService: UsermanagementService) { 
   
   }
 
@@ -23,14 +25,10 @@ export class UserdetailsComponent implements OnInit {
   public displayDetails: boolean = false;
   public userList: UserDetails[] = [];
 
-  userDetails: UserDetails[] = [
-    new UserDetails(1,"Niamul","Sanjavi","Kamalgazi, Garia","Kolkata","India","Niamul",null,700103),
-    new UserDetails(2,"Aniruddha","Garai","Belgharia","Kolkata","India","Niamul",null,700106),
-    new UserDetails(3,"Saurav","Adhikari","Baishnabghata, Garia","Kolkata","India","Niamul",null,700072)
-  ] 
+  userDetails: UserDetails[];
 
   ngOnInit(): void {
-    console.log("Inside ngOnInit");
+    this.getUsers();
     this.queryForm = this.regForm.group({
       id: [],
       lastname: []
@@ -45,11 +43,8 @@ export class UserdetailsComponent implements OnInit {
   searchUser() {
     this.userList = [];
     this.recordFound = false;
-
+    this.displayDetails = false;
     this.uDetails = <UserDetails> this.queryForm.value;
-
-    console.log("id : ", this.uDetails.id);
-    console.log("name : ", this.uDetails.lastname);
 
     if(this.uDetails.id) {
       for (let ud of this.userDetails) {
@@ -72,6 +67,13 @@ export class UserdetailsComponent implements OnInit {
     this.router.navigate(['userdetails']);
   }
 
+  /**
+   * Get the user list using UserManagementService
+   */
+  getUsers() : void {
+    this.umService.getUsers()
+        .subscribe(ud => this.userDetails = ud);
+  }
 
   exitForm() {
     this.queryForm.reset();
@@ -84,14 +86,12 @@ export class UserdetailsComponent implements OnInit {
    * @param id   the user id   
   */
   showDetails(id: number) {
-
     console.log("selected user id : ", id);
     for( let ud of this.userDetails ) {
       if( ud.id == id) {
         this.selectedUser = ud;
       }
     }
-  
     this.displayDetails = true;
   }
 

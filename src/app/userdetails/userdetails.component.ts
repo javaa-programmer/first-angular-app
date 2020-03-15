@@ -47,22 +47,13 @@ export class UserdetailsComponent implements OnInit {
     this.uDetails = <UserDetails> this.queryForm.value;
 
     if(this.uDetails.id) {
-      for (let ud of this.userDetails) {
-        console.log("id 1: ", this.uDetails.id);
-        if(ud.id == this.uDetails.id) {
-          this.userList.push(ud);
-          this.recordFound = true;
-        }
-      }  
+      this.umService.searchUserListById(this.uDetails.id)
+        .subscribe(ud => this.userList = ud);
+      this.recordFound = true;
     } else {
-      for (let ud of this.userDetails) {
-        console.log("Name : "+ this.uDetails.lastname);
-        console.log((ud.firstname + " " + ud.lastname) == this.uDetails.lastname);
-        if((ud.firstname + " " + ud.lastname) == this.uDetails.lastname) {
-          this.userList.push(ud);
-          this.recordFound = true;
-        }
-      }
+      this.umService.searchUserListByName(this.uDetails.lastname)
+        .subscribe(ud => this.userList = ud);
+      this.recordFound = true;
     }
     this.router.navigate(['userdetails']);
   }
@@ -85,16 +76,15 @@ export class UserdetailsComponent implements OnInit {
    * icon click on any user in user list
    * @param id   the user id   
   */
-  showDetails(id: number) {
-    console.log("selected user id : ", id);
-    for( let ud of this.userDetails ) {
-      if( ud.id == id) {
-        this.selectedUser = ud;
-      }
-    }
+  showDetails(id: number): void {
+    this.umService.getUserDetails(id)
+            .subscribe(ud => this.selectedUser = ud);
     this.displayDetails = true;
   }
 
+  /**
+   * 
+   */
   closeDetails() {
     this.displayDetails = false;
   }

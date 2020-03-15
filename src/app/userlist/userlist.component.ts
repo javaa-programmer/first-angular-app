@@ -23,8 +23,7 @@ export class UserlistComponent implements OnInit {
     this.getUsers();
     this.displayDetails = false;
   }
-
-  /**
+ /**
    * Get the user list using UserManagementService
    */
   getUsers(): void {
@@ -32,16 +31,18 @@ export class UserlistComponent implements OnInit {
         .subscribe(ud => this.userDetails = ud);
   }
 
-  showUserDetails(id: number) {
-    for( let ud of this.userDetails ) {
-      if( ud.id == id) {
-        this.selectedUser = ud;
-      }
-    }
-
+  /**
+   * Displays the details of the user having id as user id
+   * @param id the user id
+   */
+  showUserDetails(id: number): void {
+    this.umService.getUserDetails(id)
+            .subscribe(ud => this.selectedUser = ud);
     this.displayDetails = true;
   }
-
+  /**
+   * Close the details block
+   */
   closeDetails() {
     this.displayDetails = false;
   }

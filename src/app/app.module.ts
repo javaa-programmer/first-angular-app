@@ -1,3 +1,5 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UsermanagementService } from './usermanagement.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -19,9 +21,10 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [UsermanagementService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,9 @@
+import { ResponseEntities } from './ResponseEntities';
 import { environment } from './../environments/environment';
-import { USERSLIST } from './SampleUsers';
 import { UserDetails } from './userdetails';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { retry, catchError } from 'rxjs/operators';
 
 
@@ -19,27 +19,32 @@ export class UsermanagementService {
 
   httpOptions = {
     headers: new HttpHeaders( {
-      'Content-Type': 'application/json; charset=utf-8'
+      'Authorization': 'usermanagementsystem',
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
     })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private httpClient: HttpClient) { 
     this.myAppUrl = environment.appUrl;
     this.myApiUrl = 'api/UserDetails/';
 
   }
 
+  saveUserDetails(resEntities: ResponseEntities): Observable<UserDetails> {
+    return this.httpClient.post<UserDetails>(this.myAppUrl + this.myApiUrl, JSON.stringify(resEntities), 
+          this.httpOptions)
+          .pipe(catchError(this.errorHandler));
+  }
   /**
    * Returns the User Details List
    */
   getUsers(): Observable<UserDetails[]> {
-
-    console.log("Inside getUsers() in Service Class.");
-    return this.http.get<UserDetails[]>(this.myAppUrl + this.myApiUrl)
+    return this.httpClient.get<UserDetails[]>(this.myAppUrl + this.myApiUrl, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.errorHandler)); 
- //   return of(USERSLIST);
+    //return of(USERSLIST);
   }
 
   /**
@@ -47,40 +52,32 @@ export class UsermanagementService {
    * @param id the user id
    */
   getUserDetails(id: number): Observable<UserDetails> {
-    for( let ud of USERSLIST ) {
+    const  params = new  HttpParams().set('id', id.toString());
+    return this.httpClient.get<UserDetails>(this.myAppUrl + this.myApiUrl + id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandler));
+        
+/*        for( let ud of USERSLIST ) {
       if( ud.id == id) {
         return of(ud);
       }
-    }
+    } */
   }
   /**
    * 
    * @param id 
    */
   searchUserListById(id: number): Observable<UserDetails[]> {
-    this.userList = [];
-    for (let ud of USERSLIST) {
-      if(ud.id == id) {
-        this.userList.push(ud);
-      }
-    }
-    return of(this.userList);  
-  } 
-  /**
-   * 
-   * @param id 
-   */
-  searchUserListByName(username: string): Observable<UserDetails[]> {
-    this.userList = [];
-    for (let ud of USERSLIST) {
-      if((ud.firstname + " " + ud.lastname) == username) {
-        this.userList.push(ud);
-      }
-    }
-    return of(this.userList);  
+    const  params = new  HttpParams().set('id', id.toString());
+    return this.httpClient.get<UserDetails[]>(this.myAppUrl + this.myApiUrl + id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandler));
   } 
 
   errorHandler(error) {
+    console.log("Error : "+ error);
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error

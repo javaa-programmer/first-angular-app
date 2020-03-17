@@ -1,5 +1,4 @@
 import { UsermanagementService } from './../usermanagement.service';
-import { USERSLIST } from './../SampleUsers';
 import { UserDetails } from './../userdetails';
 import { Component, OnInit } from '@angular/core';
 
@@ -28,16 +27,15 @@ export class UserlistComponent implements OnInit {
    */
   getUsers(): void {
     this.umService.getUsers()
-        .subscribe(ud => this.userDetails = ud);
-  }
-
+        .subscribe(ud => this.userDetails = ud["data"]);
+    }
   /**
    * Displays the details of the user having id as user id
    * @param id the user id
    */
   showUserDetails(id: number): void {
     this.umService.getUserDetails(id)
-            .subscribe(ud => this.selectedUser = ud);
+            .subscribe(ud => this.selectedUser = ud["data"][0]);
     this.displayDetails = true;
   }
   /**

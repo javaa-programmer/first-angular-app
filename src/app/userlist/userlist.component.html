@@ -24,46 +24,46 @@
 
   <div *ngIf=displayDetails class="ui card regcard">
     <div class="header"><h4 class="ui dividing header headerformat">User Details</h4></div>
-      <div class="row border lblformat"> 
+      <div class="row lblformat"> 
           <div class="two columns lblformat fontbold">
             <p>Name: </p>
           </div>
           <div class="four columns lblformat">
-            <p>{{selectedUser.firstname}} {{selectedUser.lastname}} </p>
+            <p>{{selectedUser?.firstname}} {{selectedUser?.lastname}} </p>
           </div>
-          <div class="two columns lblformat  fontbold">
+          <div class="two columns lblformat fontbold">
             <p>User Id: </p>
           </div>
           <div class="four columns lblformat">
-            <p>{{selectedUser.id}}</p>
+            <p>{{selectedUser?.id}}</p>
           </div>
       </div>
-      <div class="row border lblformat "> 
+      <div class="row lblformat"> 
         <div class="two columns lblformat fontbold">
           <p>Address: </p>
         </div>
         <div class="ten columns lblformat">
-          <p>{{selectedUser.address}}</p>
+          <p>{{selectedUser?.address}}</p>
         </div>
       </div>
-      <div class="row border lblformat "> 
+      <div class="row lblformat "> 
         <div class="two columns lblformat fontbold">
           <p>City: </p>
         </div>
         <div class="two columns lblformat">
-          <p>{{selectedUser.city}}</p>
+          <p>{{selectedUser?.city}}</p>
         </div>
         <div class="two columns lblformat fontbold">
           <p>Country: </p>
         </div>
         <div class="two columns lblformat">
-          <p>{{selectedUser.country}}</p>
+          <p>{{selectedUser?.country}}</p>
         </div>
         <div class="two columns lblformat fontbold">
           <p>Pin Code: </p>
         </div>
         <div class="two columns lblformat">
-          <p>{{selectedUser.pincode}}</p>
+          <p>{{selectedUser?.pincode}}</p>
         </div>
       </div>
       <div style="padding: 10px">

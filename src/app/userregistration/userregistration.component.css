@@ -24,3 +24,7 @@
     width: auto;
     margin-top: 20px !IMPORTANT;
 }
+
+.mandatory {
+    color: red;
+}

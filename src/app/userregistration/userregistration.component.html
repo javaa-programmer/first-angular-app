@@ -3,7 +3,7 @@
     <form class="ui form" [formGroup]="registrationForm">
         <div class="header"><h4 class="ui dividing header">User Registration Form</h4></div>
         <div class="field">
-          <label>Name</label>
+          <label style="color: red">Name *</label>
           <div class="two wide fields">
             <div class="field">
               <input type="text" name="firstname" placeholder="First Name" 
@@ -24,15 +24,15 @@
           </div>
           <div class="three fields">
                 <div class="field">
-                    <label>City</label>
+                    <label style="color: red">City *</label>
                     <input type="text" name="city" placeholder="City" formControlName = "city">
                 </div>
                 <div class="field">
-                    <label>Country</label>
+                    <label style="color: red">Country *</label>
                     <input type="text" name="country" placeholder="Country" formControlName = "country">
                 </div>
                 <div class="field">
-                    <label>Pin Code</label>
+                    <label style="color: red">Pin Code * </label>
                     <input type="text" name="pincode" placeholder="Pin Code" formControlName = "pincode">
                 </div>
           </div>

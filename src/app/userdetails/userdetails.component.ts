@@ -25,8 +25,7 @@ export class UserdetailsComponent implements OnInit {
   public userList: UserDetails[] = [];
   public errorMessage: string;
   public loading: boolean = true;
-
-  userDetails: UserDetails[];
+  userDetails: UserDetails;
 
   ngOnInit(): void {
     this.queryForm = this.regForm.group({
@@ -42,20 +41,11 @@ export class UserdetailsComponent implements OnInit {
   searchUser() {
     this.userList = [];
     this.recordFound = false;
-    this.displayDetails = false;
     this.uDetails = <UserDetails> this.queryForm.value;
-    this.errorMessage = "";
-
     if(this.uDetails.id) {
-      this.umService.searchUserListById(this.uDetails.id)
-        .subscribe(ud => this.userList = ud["data"],
-        (error) => {console.error('error caught in component');
-          this.errorMessage = "User not found for Id: " + this.uDetails.id;
-          this.loading = false;
-        },
-        () =>  this.recordFound = true
-      );
-    
+      this.umService.searchUserListById(
+              this.uDetails.id).then(ud => this.userList = ud['data'])
+      this.recordFound = true;
     } 
     this.router.navigate(['userdetails']);
   }
@@ -71,8 +61,8 @@ export class UserdetailsComponent implements OnInit {
    * @param id   the user id   
   */
   showDetails(id: number): void {
-    this.umService.getUserDetails(id)
-            .subscribe((ud) => this.selectedUser = ud["data"][0]);
+    this.umService.getUserDetails(id).then(
+          ud => this.selectedUser = ud);
     this.displayDetails = true;
   }
 
@@ -82,5 +72,4 @@ export class UserdetailsComponent implements OnInit {
   closeDetails() {
     this.displayDetails = false;
   }
-
 }

@@ -13,6 +13,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class UsermanagementService {
 
   public userList: UserDetails[] = [];
+  public userDetails: UserDetails;
 
   myAppUrl: string;
   myApiUrl: string;
@@ -31,62 +32,52 @@ export class UsermanagementService {
 
   }
 
-  saveUserDetails(resEntities: ResponseEntities): Observable<UserDetails> {
-    return this.httpClient.post<UserDetails>(this.myAppUrl + this.myApiUrl, JSON.stringify(resEntities), 
-          this.httpOptions)
-          .pipe(catchError(this.errorHandler));
+  async saveUserDetails(resEntities: ResponseEntities) {
+    return await this.httpClient.post<UserDetails>(
+      this.myAppUrl + this.myApiUrl, JSON.stringify(resEntities), 
+          this.httpOptions).toPromise();
   }
   /**
    * Returns the User Details List
    */
-  getUsers(): Observable<UserDetails[]> {
-    return this.httpClient.get<UserDetails[]>(this.myAppUrl + this.myApiUrl, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandler)); 
-    //return of(USERSLIST);
+  async getUsers(): Promise<UserDetails[]> {
+    try {
+      this.userList = await this.httpClient.get<UserDetails[]>(
+              this.myAppUrl + this.myApiUrl, this.httpOptions).toPromise();
+      return this.userList['data'];
+    } catch (error) {
+      console.log("error");
+    }
   }
 
   /**
    * Returns the user details of matching id.
    * @param id the user id
    */
-  getUserDetails(id: number): Observable<UserDetails> {
-    const  params = new  HttpParams().set('id', id.toString());
-    return this.httpClient.get<UserDetails>(this.myAppUrl + this.myApiUrl + id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandler));
-        
-/*        for( let ud of USERSLIST ) {
-      if( ud.id == id) {
-        return of(ud);
-      }
-    } */
+  async getUserDetails(id: number) {
+    try {
+      this.userList = await this.httpClient.get<UserDetails[]>(
+          this.myAppUrl + this.myApiUrl + id, this.httpOptions)
+          .toPromise();
+      this.userDetails = this.userList['data'][0];
+      console.log("User Details: "+ this.userDetails);
+      return this.userDetails;
+    } catch (error) {
+      console.log(error);
+    }
   }
   /**
    * 
    * @param id 
    */
-  searchUserListById(id: number): Observable<UserDetails[]> {
-    const  params = new  HttpParams().set('id', id.toString());
-    return this.httpClient.get<UserDetails[]>(this.myAppUrl + this.myApiUrl + id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandler));
-  } 
-
-  errorHandler(error) {
-    console.log("Error : "+ error);
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  async searchUserListById(id: number) {
+    try {
+      this.userList = await this.httpClient.get<UserDetails[]>(
+            this.myAppUrl + this.myApiUrl + id, this.httpOptions)
+            .toPromise();
+      return this.userList;
+    } catch (error) {
+      console.log(error);
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
   }
 }

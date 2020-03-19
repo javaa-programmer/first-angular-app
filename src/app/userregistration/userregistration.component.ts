@@ -42,9 +42,9 @@ export class UserregistrationComponent implements OnInit {
 
     if (this.registrationForm.invalid) {
       return;
-  }
+    }
     this.resEntities.userDetails = <UserDetails> this.registrationForm.value;
-    this.umService.saveUserDetails(this.resEntities).subscribe(
+    this.umService.saveUserDetails(this.resEntities).then(
           (details: UserDetails) => console.log(details));
     this.router.navigate(['registration']);
     this.confirmFlag = true;

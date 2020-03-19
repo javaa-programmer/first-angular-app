@@ -26,16 +26,18 @@ export class UserlistComponent implements OnInit {
    * Get the user list using UserManagementService
    */
   getUsers(): void {
-    this.umService.getUsers()
-        .subscribe(ud => this.userDetails = ud["data"]);
-    }
+    this.umService.getUsers().then(
+            ud => this.userDetails = ud
+    );
+  }
   /**
    * Displays the details of the user having id as user id
    * @param id the user id
    */
   showUserDetails(id: number): void {
-    this.umService.getUserDetails(id)
-            .subscribe(ud => this.selectedUser = ud["data"][0]);
+    this.umService.getUserDetails(id).then(
+            ud => this.selectedUser = ud);
+    console.log("selected User: " + this.selectedUser);
     this.displayDetails = true;
   }
   /**

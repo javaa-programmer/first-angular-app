@@ -37,7 +37,6 @@ export class UserlistComponent implements OnInit {
   showUserDetails(id: number): void {
     this.umService.getUserDetails(id).then(
             ud => this.selectedUser = ud);
-    console.log("selected User: " + this.selectedUser);
     this.displayDetails = true;
   }
   /**

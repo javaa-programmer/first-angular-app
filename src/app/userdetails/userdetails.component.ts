@@ -63,6 +63,7 @@ export class UserdetailsComponent implements OnInit {
   showDetails(id: number): void {
     this.umService.getUserDetails(id).then(
           ud => this.selectedUser = ud);
+    console.log("User Details : " + this.selectedUser);
     this.displayDetails = true;
   }
 

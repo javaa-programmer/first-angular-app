@@ -1,0 +1,23 @@
+<div class="ui card regcard">
+  <div style="padding: 10px; ">
+      <h1>Dynamic User List</h1>
+      <div class="container">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th *ngFor = "let column of headers ">
+                    {{column}}
+                  </th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let value of values" >
+                <td *ngFor = "let column of headers" ng-click="log(value)">
+                  {{value[column]}} 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>

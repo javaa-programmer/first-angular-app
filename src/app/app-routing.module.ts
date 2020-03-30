@@ -4,12 +4,14 @@ import { UserregistrationComponent } from './userregistration/userregistration.c
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DisplayTableComponent } from './display-table/display-table.component';
 
 
 const routes: Routes = [
   { path: 'registration', component: UserregistrationComponent },
   { path: 'userlist', component: UserlistComponent},
-  { path: 'userdetails', component: UserdetailsComponent}
+  { path: 'userdetails', component: UserdetailsComponent},
+  { path: 'dynamicUserList', component: DisplayTableComponent}
 ];
 
 @NgModule({
@@ -18,4 +20,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [UsermanagementComponent, UserregistrationComponent, UserlistComponent, UserdetailsComponent]
+export const routingComponents = [UsermanagementComponent, UserregistrationComponent, UserlistComponent, UserdetailsComponent, DisplayTableComponent]

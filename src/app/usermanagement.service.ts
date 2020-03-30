@@ -56,7 +56,7 @@ export class UsermanagementService {
       this.userList = await this.httpClient.get<UserDetails[]>(
               this.myAppUrl + this.myApiUrl, this.httpOptions).toPromise();
       
-      return this.userList['data'];
+      return this.userList;
     } catch (error) {
       console.log("error status: ", error.staus);
       console.log("error message: ", error.message);

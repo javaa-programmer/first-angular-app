@@ -46,23 +46,7 @@ export class UserregistrationComponent implements OnInit {
     })
   }
 
-/*  saveUserDetails() {
-    console.log("Form Data: " , this.registrationForm.value);
-
-    if (this.registrationForm.invalid) {
-      return;
-    }
-    this.resEntities.userDetails = <UserDetails> this.registrationForm.value;
-    this.umService.saveUserDetails(this.resEntities).then(
-          (details: UserDetails) => console.log(details));
-    this.router.navigate(['registration']);
-    this.confirmFlag = true;
-  }
-*/
-
   submitUserDetails() {
-    console.log("Registration Form: " , this.registrationForm.value);
-
     if (this.registrationForm.invalid) {
       return;
     }
@@ -74,8 +58,6 @@ export class UserregistrationComponent implements OnInit {
     formData.append("country", this.registrationForm.get('country').value);
     formData.append("pincode", this.registrationForm.get('pincode').value);
     formData.append("file", this.registrationForm.get('image').value);
-
-    console.log("Form Data: " + formData);
 
     this.umService.submitUserDetails(formData).then(
       (details: UserDetails) => console.log(details));

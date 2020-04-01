@@ -7,11 +7,13 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DynamicUserListComponent } from './dynamic-user-list/dynamic-user-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    DynamicUserListComponent,
   ],
 
   imports: [

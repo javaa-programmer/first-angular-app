@@ -5,19 +5,22 @@
           <table class="table table-striped">
             <thead>
                 <tr>
-                  <th *ngFor = "let column of headers ">
+                  <th *ngFor = "let column of headers.headers_alias ">
                     {{column}}
                   </th>
+                  <th></th>  
                 </tr>
             </thead>
             <tbody>
-              <tr *ngFor = "let value of values" >
-                <td *ngFor = "let column of headers" ng-click="log(value)">
+              <tr *ngFor = "let value of valuesArray" >
+                <td *ngFor = "let column of headers.headers" ng-click="log(value)">
                   {{value[column]}} 
                 </td>
+                <td><a href="javascript:void(0);"><img src="/assets/user_details.png" width="20" height="20" /></a></td>
+                <!--(click) = showUserDetails(userDetail.id) -->  
               </tr>
             </tbody>
           </table>
-        </div>
-  </div>
-</div>
+        </div>  
+      </div>
+ </div>

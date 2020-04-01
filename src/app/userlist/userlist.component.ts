@@ -20,7 +20,6 @@ export class UserlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    console.log("User Details : ", this.userDetails);
     this.displayDetails = false;
   }
   /**
@@ -30,8 +29,6 @@ export class UserlistComponent implements OnInit {
     this.umService.getUsers().then(
             ud => this.userDetails = ud['data']
     );
-
-    console.log("UD : ", this.userDetails);
   }
   /**
    * Displays the details of the user having id as user id

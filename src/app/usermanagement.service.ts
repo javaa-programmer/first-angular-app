@@ -31,13 +31,6 @@ export class UsermanagementService {
     this.myApiUrl = 'api/UserDetails/';
   }
 
-/*  async saveUserDetails(resEntities: ResponseEntities) {
-    return await this.httpClient.post<UserDetails>(
-      this.myAppUrl + this.myApiUrl, JSON.stringify(resEntities), 
-          this.httpOptions).toPromise();
-  }
-*/
-
   /**
    * 
    * @param formData 
@@ -74,7 +67,6 @@ export class UsermanagementService {
           this.myAppUrl + this.myApiUrl + id, this.httpOptions)
           .toPromise();
       this.userDetails = this.userList['data'][0];
-      console.log("User Details: "+ this.userDetails.profilepic);
       return this.userDetails;
     } catch (error) {
       console.log(error);

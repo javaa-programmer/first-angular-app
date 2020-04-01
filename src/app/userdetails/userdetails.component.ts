@@ -38,14 +38,15 @@ export class UserdetailsComponent implements OnInit {
    * User Name. Display the list of users with 
    * matching search criteria.
    */
-  searchUser() {
+  async searchUser() {
     this.userList = [];
     this.recordFound = false;
     this.uDetails = <UserDetails> this.queryForm.value;
     if(this.uDetails.id) {
-      this.umService.searchUserListById(
+      await this.umService.searchUserListById(
               this.uDetails.id).then(ud => this.userList = ud['data'])
       this.recordFound = true;
+      this.displayDetails = false;
     } 
     this.router.navigate(['userdetails']);
   }
@@ -60,8 +61,8 @@ export class UserdetailsComponent implements OnInit {
    * icon click on any user in user list
    * @param id   the user id   
   */
-  showDetails(id: number): void {
-    this.umService.getUserDetails(id).then(
+  async showDetails(id: number) {
+    await this.umService.getUserDetails(id).then(
           ud => this.selectedUser = ud);
     console.log("User Details : " + this.selectedUser);
     this.displayDetails = true;

@@ -48,7 +48,7 @@ export class DynamicUserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerObject.headers = ["user_id", "name", "age", "gender", "country", "pin_code"];
-    this.headerObject.headers_alias = ["User Id", "User Name", "Age", "Gender", "Country", "Pincode"];
+    this.headerObject.headers_alias = ["User Id", "User Name", "Age", "Gender", "Country", "Pin Code"];
   }
 
   updateData(d) {

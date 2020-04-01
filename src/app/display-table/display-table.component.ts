@@ -11,6 +11,7 @@ import { DisplayTableService } from '../DisplayTableService';
 
 export class DisplayTableComponent implements OnInit {
 
+  userId: string;
   @Input () headers: any;
   @Input () valuesArray: any;
 
@@ -18,4 +19,8 @@ export class DisplayTableComponent implements OnInit {
 
   ngOnInit() {
   } 
+
+  senddata(indexOfElement) {
+    this.dataEvent.emit(indexOfElement);
+  }
 }

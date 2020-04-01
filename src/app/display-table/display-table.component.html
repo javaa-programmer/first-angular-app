@@ -12,12 +12,12 @@
                 </tr>
             </thead>
             <tbody>
-              <tr *ngFor = "let value of valuesArray" >
+              <tr *ngFor = "let value of valuesArray ; let indexOfElement=index;">
                 <td *ngFor = "let column of headers.headers" ng-click="log(value)">
                   {{value[column]}} 
                 </td>
-                <td><a href="javascript:void(0);"><img src="/assets/user_details.png" width="20" height="20" /></a></td>
-                <!--(click) = showUserDetails(userDetail.id) -->  
+                <td><a href="javascript:void(0);"><img src="/assets/user_details.png" (click) = senddata(indexOfElement)  width="20" height="20" /></a></td>
+                <!---->  
               </tr>
             </tbody>
           </table>

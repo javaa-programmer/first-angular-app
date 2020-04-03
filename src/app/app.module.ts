@@ -8,6 +8,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicUserListComponent } from './dynamic-user-list/dynamic-user-list.component';
+import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,16 @@ import { DynamicUserListComponent } from './dynamic-user-list/dynamic-user-list.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
   ],
-  providers: [UsermanagementService, HttpClient],
+  providers: [UsermanagementService, HttpClient,
+      {
+        provide: NgbDateAdapter,
+        useClass: NgbDateNativeAdapter
+      }],
+
+  
+
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

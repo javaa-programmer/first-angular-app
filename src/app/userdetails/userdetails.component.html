@@ -57,14 +57,23 @@
             <p>{{selectedUser.id}}</p>
           </div>
       </div>
-      <div class="row border lblformat "> 
+      <div class="row lblformat"> 
         <div class="two columns lblformat fontbold">
           <p>Address: </p>
         </div>
-        <div class="ten columns lblformat">
-          <p>{{selectedUser.address}}</p>
+        <div class="four columns lblformat">
+          <p>{{selectedUser?.address}} </p>
         </div>
-      </div>
+        <div class="two columns lblformat fontbold">
+          <p>Date Of Birth: </p>
+        </div>
+        <div class="four columns lblformat">
+          <p>{{selectedUser?.dateofbirth | date: 'yyyy-MM-dd'}}</p>
+        </div>
+    </div>
+
+
+
       <div class="row border lblformat "> 
         <div class="two columns lblformat fontbold">
           <p>City: </p>

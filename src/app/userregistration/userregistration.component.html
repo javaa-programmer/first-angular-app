@@ -14,15 +14,27 @@
             </div>
             </div>
           </div>
-          <div class="field">
-            <label>Address</label>
+          <div class="two fields">
             <div class="field">
-              <div class="field">
+                <label>Address</label>
                 <input type="text" name="address" placeholder="Address" formControlName = "address">
+            </div>
+            <div class="field">
+              <label>Date Of Birth</label>
+              <div class="input-group">
+                <input class="form-control" name="dateofbirth" placeholder="yyyy-mm-dd" formControlName="dateofbirth" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="three fields">
+
+
+
+
+
+      </div>
+      <div class="three fields">
                 <div class="field">
                     <label style="color: red">City *</label>
                     <input type="text" name="city" placeholder="City" formControlName = "city">
@@ -60,6 +72,7 @@
           Cancel
         </button>
     </form>  
+    
 </div>
 
 <ng-template #confirmEntry>

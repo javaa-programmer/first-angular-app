@@ -33,6 +33,13 @@ export class UserregistrationComponent implements OnInit {
   uploadedFilePath: string = null;
   formattedDate: any;
 
+  get firstname() { return this.registrationForm.get('firstname'); }
+  get lastname() { return this.registrationForm.get('lastname'); }
+  get city() { return this.registrationForm.get('city'); }
+  get country() { return this.registrationForm.get('country'); }
+  get pincode() { return this.registrationForm.get('pincode'); }
+  get dateofbirth() { return this.registrationForm.get('dateofbirth'); }
+
   ngOnInit(): void {
     this.confirmFlag = false;
     this.registrationForm = this.regForm.group({
@@ -50,6 +57,7 @@ export class UserregistrationComponent implements OnInit {
 
   submitUserDetails() {
     if (this.registrationForm.invalid) {
+      this.registrationForm.markAllAsTouched();
       return;
     }
     var formData: any = new FormData();
@@ -60,9 +68,12 @@ export class UserregistrationComponent implements OnInit {
     formData.append("country", this.registrationForm.get('country').value);
     formData.append("pincode", this.registrationForm.get('pincode').value);
     formData.append("file", this.registrationForm.get('image').value);
+
+    console.log("Date of Birth: " + this.registrationForm.get('dateofbirth').value);
     this.formattedDate = this.datePipe.transform(this.registrationForm.get('dateofbirth').value, 'yyyyMMdd');
     formData.append("dateofbirth", this.formattedDate);
-    console.log("Date of Birth: "+this.formattedDate);
+    console.log("Formatted Date of Birth: " + this.formattedDate);
+    
     this.umService.submitUserDetails(formData).then(
       (details: UserDetails) => console.log(details));
     this.router.navigate(['registration']);

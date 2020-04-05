@@ -51,9 +51,7 @@ export class UsermanagementService {
       
       return this.userList;
     } catch (error) {
-      console.log("error status: ", error.staus);
-      console.log("error message: ", error.message);
-      console.log("complete error: ", error);
+      console.log("error error: ", error.error);
     }
   }
 

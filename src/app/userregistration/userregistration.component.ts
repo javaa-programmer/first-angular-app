@@ -32,6 +32,7 @@ export class UserregistrationComponent implements OnInit {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   formattedDate: any;
+  public confirmMessage: string;
 
   get firstname() { return this.registrationForm.get('firstname'); }
   get lastname() { return this.registrationForm.get('lastname'); }
@@ -55,11 +56,12 @@ export class UserregistrationComponent implements OnInit {
     })
   }
 
-  submitUserDetails() {
+  async submitUserDetails() {
     if (this.registrationForm.invalid) {
       this.registrationForm.markAllAsTouched();
       return;
     }
+    this.confirmMessage = 'Thank you for registration...Your Registration is complete';
     var formData: any = new FormData();
     formData.append("firstname", this.registrationForm.get('firstname').value);
     formData.append("lastname", this.registrationForm.get('lastname').value);
@@ -69,14 +71,24 @@ export class UserregistrationComponent implements OnInit {
     formData.append("pincode", this.registrationForm.get('pincode').value);
     formData.append("file", this.registrationForm.get('image').value);
 
-    console.log("Date of Birth: " + this.registrationForm.get('dateofbirth').value);
     this.formattedDate = this.datePipe.transform(this.registrationForm.get('dateofbirth').value, 'yyyyMMdd');
     formData.append("dateofbirth", this.formattedDate);
-    console.log("Formatted Date of Birth: " + this.formattedDate);
-    
-    this.umService.submitUserDetails(formData).then(
-      (details: UserDetails) => console.log(details));
-    this.router.navigate(['registration']);
+    try {
+      await this.umService.submitUserDetails(formData);
+      this.router.navigate(['registration']);
+    } catch (error) {
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        this.confirmMessage = `${error.error.message}`;
+      } else {
+        // server-side error
+        if (Number(`${error.status}`) == 0) {
+          this.confirmMessage = 'Could not connect to Server. Please check if Server is Running';
+        } else {
+          this.confirmMessage = `${error.error.message}`;
+        }
+      }      
+    }
     this.confirmFlag = true;
   }
 

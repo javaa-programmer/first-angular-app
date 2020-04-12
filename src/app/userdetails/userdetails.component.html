@@ -37,6 +37,13 @@
           </div>
     </div>
 </div>
+<div *ngIf="userDoesNotExist" class="ui card regcard">
+  <div style="padding: 10px; height: 250px;">
+    <!--div style="text-align: center; left: 50%;"><b>User does not exist with User Id : {{queryForm.value.id}}</b></div-->
+    <div style="text-align: center; left: 50%;"><b>{{errorMessage}}</b></div>
+  </div>
+</div>
+
 <div *ngIf="errorMessage" class="alert alert-warning">
   <strong>Warning!</strong> {{errorMessage | json}}
 </div>

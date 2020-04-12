@@ -1,5 +1,5 @@
 <div class="ui card regcard">
-    <div style="padding: 10px; ">
+    <div *ngIf="userListFound; else userListNotFound" style="padding: 10px; ">
         <h1>User List</h1>
         <div class="container">
             <table class="table table-striped">
@@ -20,8 +20,13 @@
             </table>
           </div>
     </div>
+    <ng-template #userListNotFound>
+      <div style="padding: 10px; height: 250px;">
+        <div style="text-align: center; left: 50%;"><b>{{errorMessage}}</b></div>
+      </div>
+    </ng-template>
   </div>
-
+    
   <div *ngIf=displayDetails class="ui card regcard">
     <div class="header"><h4 class="ui dividing header headerformat">User Details</h4></div>
 

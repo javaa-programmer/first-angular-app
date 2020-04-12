@@ -21,11 +21,13 @@ export class UserdetailsComponent implements OnInit {
 
   public selectedUser: UserDetails ;
   public recordFound: boolean = false;
+  public userDoesNotExist : boolean = false;
   public displayDetails: boolean = false;
   public userList: UserDetails[] = [];
   public errorMessage: string;
   public loading: boolean = true;
   userDetails: UserDetails;
+
 
   ngOnInit(): void {
     this.queryForm = this.regForm.group({
@@ -41,16 +43,39 @@ export class UserdetailsComponent implements OnInit {
   async searchUser() {
     this.userList = [];
     this.recordFound = false;
+    this.userDoesNotExist = false;
+    this.displayDetails = false;
     this.uDetails = <UserDetails> this.queryForm.value;
-    if(this.uDetails.id) {
-      await this.umService.searchUserListById(
-              this.uDetails.id).then(ud => this.userList = ud['data'])
-      this.recordFound = true;
-      this.displayDetails = false;
-    } 
+    this.errorMessage = '';
+
+    try {
+      if(this.uDetails.id) {
+        var ud = await this.umService.searchUserListById(this.uDetails.id);
+        this.userList = ud['data'];
+        this.recordFound = true;
+      } 
+    } catch (error) {
+      this.recordFound = false;
+      this.userDoesNotExist = true;
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        this.errorMessage = `${error.error.message}`;
+      } else {
+        // server-side error
+        if (Number(`${error.status}`) == 0) {
+          this.errorMessage = 'Could not connect to Server. Please check if Server is Running';
+        } else {
+          this.errorMessage = `${error.error.message}`;
+        }
+      }
+    }
+    this.displayDetails = false;
     this.router.navigate(['userdetails']);
   }
 
+  /**
+   * Exit the form
+   */
   exitForm() {
     this.queryForm.reset();
     this.router.navigate(['']);
@@ -62,12 +87,10 @@ export class UserdetailsComponent implements OnInit {
    * @param id   the user id   
   */
   async showDetails(id: number) {
-    await this.umService.getUserDetails(id).then(
-          ud => this.selectedUser = ud);
-    console.log("User Details : " + this.selectedUser);
+    var ud = await this.umService.getUserDetails(id);
+    this.selectedUser = ud;
     this.displayDetails = true;
   }
-
   /**
    * 
    */

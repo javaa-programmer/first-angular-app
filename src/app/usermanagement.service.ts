@@ -35,12 +35,26 @@ export class UsermanagementService {
    * 
    * @param formData 
    */
-  async submitUserDetails(formData: FormData) {
+  /*async submitUserDetails(formData: FormData) {
     return await this.httpClient.post<UserDetails>(
       "https://localhost:5001/api/uploadImage", formData, 
           this.httpOptions).toPromise();
-  }
+    
+  } */
 
+  /**
+   * 
+   * @param formData 
+   */
+ async submitUserDetails(formData: FormData) {
+    try {
+      return await this.httpClient.post<UserDetails>(
+        "https://localhost:5001/api/uploadImage", formData, 
+            this.httpOptions).toPromise();
+    } catch (error) {
+      throw (error);
+    }
+  }
   /**
    * Returns the User Details List
    */
@@ -51,7 +65,7 @@ export class UsermanagementService {
       
       return this.userList;
     } catch (error) {
-      console.log("error error: ", error.error);
+      throw (error);
     }
   }
 
@@ -81,7 +95,7 @@ export class UsermanagementService {
             .toPromise();
       return this.userList;
     } catch (error) {
-      console.log(error);
+        throw (error);
     }
   }
 }

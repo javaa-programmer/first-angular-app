@@ -11,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
 export class UserlistComponent implements OnInit {
 
   public selectedUser: UserDetails;
-
   public displayDetails: boolean = false;
-
   userDetails: UserDetails[];
+  public userListFound : boolean = false;
+  public errorMessage : string = '';
 
   constructor(private umService: UsermanagementService) { }
 
@@ -25,18 +25,35 @@ export class UserlistComponent implements OnInit {
   /**
    * Get the user list using UserManagementService
    */
-  getUsers(): void {
-    this.umService.getUsers().then(
-            ud => this.userDetails = ud['data']
-    );
+  async getUsers() {
+    try {
+      var userList = await this.umService.getUsers();
+      this.userDetails = userList['data'];
+      this.userListFound = true;
+    } catch (error) {
+      this.userListFound = false;
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        this.errorMessage = `${error.error.message}`;
+      } else {
+        // server-side error
+        if (Number(`${error.status}`) == 0) {
+          console.log("Could not connect to Server. Please check if Server is Running");
+          this.errorMessage = 'Could not connect to Server. Please check if Server is Running';
+        } else {
+          console.log("Other Error: ", `${error.error.message}`);
+          this.errorMessage = `${error.error.message}`;
+        }
+      }      
+    }
   }
   /**
    * Displays the details of the user having id as user id
    * @param id the user id
    */
-  showUserDetails(id: number): void {
-    this.umService.getUserDetails(id).then(
-            ud => this.selectedUser = ud);
+  async showUserDetails(id: number) {
+    var udetail = await this.umService.getUserDetails(id);
+    this.selectedUser = udetail;
     this.displayDetails = true;
   }
   /**
